@@ -4,7 +4,7 @@ USERNAME = 'root'
 PASSWORD = 'root'
 HOST = '47.107.173.225'
 PORT = '3306'
-DATABASE = 'openapistudy'
+DATABASE = 'openApiStudy'
 
 SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}'.format(
     DIALECT,
