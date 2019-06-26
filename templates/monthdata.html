@@ -1,0 +1,45 @@
+{% extends 'nav.html' %}
+{% block title %}
+{% endblock %}
+{% block main %}
+    <title>monthData</title>
+    <script type="text/javascript" src="/static/js/monthdata.js"></script>
+    <link rel="stylesheet" href="/static/css/monthdata.css"/>
+
+
+    <div class="content">
+        <table class="monthdata table table-bordered table-striped">
+            <caption>{{ data[0]['cityName'] }}空气质量历史数据</caption>
+            <thead>
+            <tr>
+                <th>月份</th>
+                <th>AQI</th>
+                <th>AQI范围</th>
+                <th>质量等级</th>
+                <th>PM2.5</th>
+                <th>PM10</th>
+                <th>SO2</th>
+                <th>CO</th>
+                <th>NO2</th>
+                <th>O3</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for d in data[::-1] %}
+                <tr>
+                    <td><a href="/daydata/?city={{d['cityName']}}&month={{ d['time_point'] }}">{{ d['time_point'] }}</a></td>
+                    <td>{{ d['aqi'] }}</td>
+                    <td>{{ d['min_aqi'] }}~{{ d['max_aqi'] }}</td>
+                    <td>{{ d['quality'] }}</td>
+                    <td>{{ d['pm2_5'] }}</td>
+                    <td>{{ d['pm10'] }}</td>
+                    <td>{{ d['so2'] }}</td>
+                    <td>{{ d['co'] }}</td>
+                    <td>{{ d['no2'] }}</td>
+                    <td>{{ d['o3'] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

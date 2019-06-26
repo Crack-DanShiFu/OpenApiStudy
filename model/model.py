@@ -1,4 +1,5 @@
 import json
+import time
 
 from exts import db
 
@@ -43,7 +44,7 @@ class DayData(db.Model):
     def to_json(self):
         json_data = {
             'cityName': self.cityName,
-            'time_point': self.time_point,
+            'time_point': str(self.time_point),
             'aqi': self.aqi,
             'pm2_5': self.pm2_5,
             'pm10': self.pm10,

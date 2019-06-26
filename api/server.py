@@ -16,3 +16,13 @@ def query_month_data():
     print(result[:20])
     # sorted(result, cmp=locale.strcoll, key=lambda x: x['cityName'])
     return ''
+
+
+def query_city_list():
+    query = db.session().query(CityName).all()
+    return json.dumps([i.to_json() for i in query], ensure_ascii=False)
+
+
+def query_month_data_by_city(city):
+    query = db.session().query(MonthData).filter_by(cityName=city).all()
+    return json.dumps([i.to_json() for i in query[::-1]])
