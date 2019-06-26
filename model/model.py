@@ -17,6 +17,7 @@ class CityName(db.Model):
     city = db.Column(db.String(10))
     first_letter = db.Column(db.String(2))
     rank = db.Column(db.Integer)
+    regionid = db.Column(db.Integer)
 
     def to_json(self):
         json_data = {

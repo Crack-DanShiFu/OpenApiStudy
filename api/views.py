@@ -23,3 +23,9 @@ def get_city_list():
 @api.route('/get_month_data/<city>')
 def get_month_data_by_city(city):
     return query_month_data_by_city(city)
+
+
+# query_lately_data
+@api.route('/get_lately_aqi/')
+def get_lately_data_city():
+    return query_lately_aqi_city()

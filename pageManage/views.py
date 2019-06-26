@@ -7,7 +7,6 @@ from . import pageManage
 @pageManage.route('/')
 def index():
     data = query_city_list()
-    print(data)
     return render_template('index.html', data=data)
 
 
