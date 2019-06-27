@@ -6,9 +6,7 @@
 
 th {
     text-align: center; /** 设置水平方向居中 */
-    vertical-align: middle; /** 设置垂直方向居中 */
-    background-color: #d9edf7;
-    border-color: #bce8f1;
+    vertical-align: middle /** 设置垂直方向居中 */
 }
 
 .monthdata {
@@ -16,17 +14,14 @@ th {
     float: left;
 }
 
+.monthdata th {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
 
 .right_panel {
     float: right;
     margin-top: 36px;
     width: 230px;
-}
-
-button {
-    width: 200px;
-    margin: auto;
-    margin-top: 10px;
-
-
 }

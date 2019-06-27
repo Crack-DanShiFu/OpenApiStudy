@@ -2,14 +2,13 @@
 {% block title %}
 {% endblock %}
 {% block main %}
-    <title>monthData</title>
+    <title>{{ data['city'] }}空气质量数据</title>
     <script type="text/javascript" src="/static/js/monthdata.js"></script>
     <link rel="stylesheet" href="/static/css/monthdata.css"/>
 
-
     <div class="content">
-        <table class="monthdata table table-bordered table-striped">
-            <caption>{{ data[0]['cityName'] }}空气质量历史数据</caption>
+        <table class="monthdata table table-bordered table-striped table-hover table-responsive">
+            <caption><span>{{ data['city'] }}</span>空气质量历史数据(数值单位：μg/m3(CO为mg/m3))</caption>
             <thead>
             <tr>
                 <th>月份</th>
@@ -25,21 +24,49 @@
             </tr>
             </thead>
             <tbody>
-            {% for d in data[::-1] %}
+            {% for d in data['result'][::-1] %}
                 <tr>
-                    <td><a href="/daydata/?city={{d['cityName']}}&month={{ d['time_point'] }}">{{ d['time_point'] }}</a></td>
-                    <td>{{ d['aqi'] }}</td>
-                    <td>{{ d['min_aqi'] }}~{{ d['max_aqi'] }}</td>
-                    <td>{{ d['quality'] }}</td>
-                    <td>{{ d['pm2_5'] }}</td>
-                    <td>{{ d['pm10'] }}</td>
-                    <td>{{ d['so2'] }}</td>
-                    <td>{{ d['co'] }}</td>
-                    <td>{{ d['no2'] }}</td>
-                    <td>{{ d['o3'] }}</td>
+                    <td align="center">
+                        <a href="/daydata/?city={{ d['cityName'] }}&month={{ d['time_point'] }}">{{ d['time_point'] }}</a>
+                    </td>
+                    <td align="center">{{ d['aqi'] }}</td>
+                    <td align="center">{{ d['min_aqi'] }}~{{ d['max_aqi'] }}</td>
+                    <td align="center">{{ d['quality'] }}</td>
+                    <td align="center">{{ d['pm2_5'] }}</td>
+                    <td align="center">{{ d['pm10'] }}</td>
+                    <td align="center">{{ d['so2'] }}</td>
+                    <td align="center">{{ d['co'] }}</td>
+                    <td align="center">{{ d['no2'] }}</td>
+                    <td align="center">{{ d['o3'] }}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        <div class="right_panel">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ data['city'] }}月统计数据</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="container" style="height: 200px; margin: 0 auto"></div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">数据下载</h3>
+                </div>
+                <div class="panel-body">
+                    <button type="button" class="btn btn-info" onclick="downloadAverageMonthDate()">下载当前页面
+                    </button>
+
+                    <button type="button" class="btn btn-info" onclick="downloadAllDayDate()">
+                        下载所有数据
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+
     </div>
 {% endblock %}

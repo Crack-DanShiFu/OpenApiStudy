@@ -7,7 +7,9 @@ $(document).ready(function () {
         '重度污染': [0, '#FF16B5'],
         '严重污染': [0, '#48004E']
     }
-    var city = $('caption span').text()
+    var city = $('caption span:first').text()
+    var month = $('caption span:last').text()
+
     var chart = {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -35,7 +37,7 @@ $(document).ready(function () {
         name: '',
     }];
     $.ajax({
-        url: '/api/get_month_data/?city=' + city,
+        url: '/api/get_day_data/?city=' + city + '&month=' + month,
         type: 'GET',
         success: function (data) {
             var data_obj = JSON.parse(data)
@@ -65,32 +67,11 @@ $(document).ready(function () {
 
         }
     })
-});
 
+})
 
 var creat_excel = function (jsonData) {
-    let str = '地区,月份,AQI,max_AQI,min_AQI,PM2.5,PM10,SO2,CO,NO2,O3,rank,空气质量\n';
-    let strKey = ['cityName', 'time_point', 'aqi', 'max_aqi', 'min_aqi', 'pm2_5', 'pm10', 'so2', 'co', 'no2', 'o3', 'rank', 'quality'];
-    //增加\t为了不让表格显示科学计数法或者其他格式
-    for (let i = 0; i < jsonData.length; i++) {
-        for (let k = 0; k < strKey.length; k++) {
-            str += `${jsonData[i][strKey[k]] + '\t'},`;
-        }
-        str += '\n';
-    }
-    //encodeURIComponent解决中文乱码
-    let uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(str);
-    //通过创建a标签实现
-    let link = document.createElement("a");
-    link.href = uri;
-    //对下载的文件命名
-    link.download = jsonData[0]['cityName'] + "空气质量月平均数据.csv";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-var creat_day_excel = function (jsonData) {
-    let str = '地区,月份,AQI,PM2.5,PM10,SO2,CO,NO2,O3,rank,空气质量\n';
+    let str = '地区,日期,AQI,PM2.5,PM10,SO2,CO,NO2,O3,rank,空气质量\n';
     let strKey = ['cityName', 'time_point', 'aqi', 'pm2_5', 'pm10', 'so2', 'co', 'no2', 'o3', 'rank', 'quality'];
     //增加\t为了不让表格显示科学计数法或者其他格式
     for (let i = 0; i < jsonData.length; i++) {
@@ -105,16 +86,18 @@ var creat_day_excel = function (jsonData) {
     let link = document.createElement("a");
     link.href = uri;
     //对下载的文件命名
-    link.download = jsonData[0]['cityName'] + "空气质量日数据.csv";
+    link.download = jsonData[0]['cityName'] + jsonData[0]['time_point'].substr(0, 7) + "空气质量日数据.csv";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
 
-var downloadAverageMonthDate = function () {
-    var city = $('caption span').text()
+
+var downloadDayDate = function () {
+    var city = $('caption span:first').text()
+    var month = $('caption span:last').text()
     $.ajax({
-        url: '/api/get_month_data/?city=' + city,
+        url: '/api/get_day_data/?city=' + city + '&month=' + month,
         type: 'GET',
         success: function (data) {
             var data_obj = JSON.parse(data)
@@ -122,16 +105,4 @@ var downloadAverageMonthDate = function () {
         }
     })
 
-}
-
-var downloadAllDayDate = function () {
-    var city = $('caption span').text()
-    $.ajax({
-        url: '/api/get_all_day_data/?city=' + city,
-        type: 'GET',
-        success: function (data) {
-            var data_obj = JSON.parse(data)
-            creat_day_excel(data_obj)
-        }
-    })
 }

@@ -2,7 +2,7 @@
 {% block title %}
 {% endblock %}
 {% block main %}
-    <title>index</title>
+    <title>OpenApiStudy</title>
 
     <script type="text/javascript" src="/static/js/index.js"></script>
     <script language="javascript"
@@ -11,7 +11,18 @@
 
     <div class="content">
 
-        <div id="indexmap" class="map" tabindex="0"></div>
+        <div id="indexmap" class="map" tabindex="0">
+            <div class="color_bar">
+                <div>优</div>
+                <div>良</div>
+                <div>轻度污染</div>
+                <div>中度污染</div>
+                <div>重度污染</div>
+            </div>
+        </div>
+
+
+        <div class="title">空气质量历史数据查询</div>
 
         {% for first_letter in data %}
             <ul class="breadcrumb">
