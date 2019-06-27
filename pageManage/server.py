@@ -14,14 +14,21 @@ def query_city_list():
     return result
 
 
+def query_provinces_list():
+    query = db.session().query(Provinces).all()
+    return [i.to_json() for i in query]
+
+
 def query_month_data(city):
     query = db.session().query(MonthData).filter_by(cityName=city).all()
     return {'city': city, 'result': [i.to_json() for i in query]}
 
 
 def query_day_data(city, month):
-    print(city, month)
-    query = db.session().query(DayData).filter(DayData.time_point.contains(month)).filter_by(
+    query = db.session().query(DayData).filter(DayData.time_point.ilike(month + '%')).filter_by(
         cityName=city).all()
-
     return {'city': city, 'month': month, 'result': [i.to_json() for i in query]}
+
+
+def query_provinces_data(provinces):
+    return ''

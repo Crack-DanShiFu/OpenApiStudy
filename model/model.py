@@ -28,6 +28,19 @@ class CityName(db.Model):
         return json_data
 
 
+class Provinces(db.Model):
+    __tableName__ = 'provinces'
+    provinces_name = db.Column(db.String(10), primary_key=True, )
+    provinces_id = db.Column(db.String(6))
+
+    def to_json(self):
+        json_data = {
+            'provinces_name': self.provinces_name,
+            'provinces_id': self.provinces_id,
+        }
+        return json_data
+
+
 class DayData(db.Model):
     __tableName__ = 'day_data'
     cityName = db.Column(db.String(10), primary_key=True)

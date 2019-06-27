@@ -48,7 +48,6 @@ $(document).ready(function () {
                 layers: [
                     disProvince,
                     new AMap.TileLayer()
-
                 ],
                 viewMode: '2D',
                 resizeEnable: true
@@ -58,6 +57,5 @@ $(document).ready(function () {
             map.addControl(new AMap.ToolBar({liteStyle: true}));
         },
     })
-
 
 })

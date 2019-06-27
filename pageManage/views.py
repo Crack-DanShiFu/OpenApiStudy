@@ -6,8 +6,9 @@ from . import pageManage
 
 @pageManage.route('/')
 def index():
-    data = query_city_list()
-    return render_template('index.html', data=data)
+    data1 = query_city_list()
+    data2 = query_provinces_list()
+    return render_template('index.html', data=[data1, data2])
 
 
 # monthdata
@@ -25,3 +26,11 @@ def day_data():
     month = request.args.get('month')
     data = query_day_data(city, month)
     return render_template('daydata.html', data=data)
+
+
+# provinces_data?provinces=天津市
+@pageManage.route('/provinces_data/')
+def provinces_data():
+    provinces = request.args.get('provinces')
+    data = query_provinces_data(provinces)
+    return render_template('provinces.html', data=data)

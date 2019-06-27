@@ -70,7 +70,7 @@ $(document).ready(function () {
 
 })
 
-var creat_excel = function (jsonData) {
+var creat_excel = function (city, month, jsonData) {
     let str = '地区,日期,AQI,PM2.5,PM10,SO2,CO,NO2,O3,rank,空气质量\n';
     let strKey = ['cityName', 'time_point', 'aqi', 'pm2_5', 'pm10', 'so2', 'co', 'no2', 'o3', 'rank', 'quality'];
     //增加\t为了不让表格显示科学计数法或者其他格式
@@ -86,7 +86,7 @@ var creat_excel = function (jsonData) {
     let link = document.createElement("a");
     link.href = uri;
     //对下载的文件命名
-    link.download = jsonData[0]['cityName'] + jsonData[0]['time_point'].substr(0, 7) + "空气质量日数据.csv";
+    link.download = city + month + "空气质量日数据.csv";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -101,7 +101,7 @@ var downloadDayDate = function () {
         type: 'GET',
         success: function (data) {
             var data_obj = JSON.parse(data)
-            creat_excel(data_obj)
+            creat_excel(city, month, data_obj)
         }
     })
 

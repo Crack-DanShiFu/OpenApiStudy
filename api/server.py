@@ -21,8 +21,7 @@ def query_month_data_by_city(city):
 # query_day_data_by_city
 
 def query_day_data_by_city(city, month):
-    query = db.session().query(DayData).filter(DayData.time_point.contains(month)).filter_by(
-        cityName=city).all()
+    query = db.session().query(DayData).filter(DayData.time_point.ilike(month + '%')).filter_by(cityName=city).all()
     return json.dumps([i.to_json() for i in query], ensure_ascii=False)
 
 
@@ -37,7 +36,7 @@ def query_lately_aqi_city():
     oneday = datetime.timedelta(days=1)
     yesterday = today - oneday
     now_y, now_m, now_d = yesterday.strftime('%Y-%m-%d').split('-')
-    s = now_y + '-' + now_m + '-' + str(int(now_d) - 1)
+    s = now_y + '-' + now_m + '-' + now_d
     query = db.session().query(DayData, CityName).filter(DayData.time_point == s).filter(
         DayData.cityName == CityName.city).all()
     result = {}

@@ -27,7 +27,7 @@
             {% for d in data['result'][::-1] %}
                 <tr>
                     <td align="center">
-                        <a href="/daydata/?city={{ d['cityName'] }}&month={{ d['time_point'] }}">{{ d['time_point'] }}</a>
+                        <a target=_blank href="/daydata/?city={{ d['cityName'] }}&month={{ d['time_point'] }}">{{ d['time_point'] }}</a>
                     </td>
                     <td align="center">{{ d['aqi'] }}</td>
                     <td align="center">{{ d['min_aqi'] }}~{{ d['max_aqi'] }}</td>
