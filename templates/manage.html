@@ -27,7 +27,7 @@
                 <h2>数据最近更新：{{ data['least_time'] }}</h2>
                 <ul class="breadcrumb">
                     {% for c in data['provinces_list'] %}
-                        <li><a href="/provinces_data?provinces={{ c['provinces_id'] }}"> {{ c['provinces_name'] }} </a>
+                        <li><a target=_blank href="/provinces_data?provinces={{ c['provinces_id'] }}"> {{ c['provinces_name'] }} </a>
                         </li>
                     {% endfor %}
                 </ul>

@@ -1,7 +1,7 @@
 let aqi_data = null
 let adcode = []
 url = window.location.href;
-var provinces = url.split('provinces=')[1]
+var provinces = url.split('provinces=')[1] + '0000'
 let qualitys = {
     '优': [0, '#37FF2F'],
     '良': [0, '#FFF20E'],
@@ -74,6 +74,7 @@ $(document).ready(function () {
         zIndex: 12,
         adcode: adcode,
         depth: 1,
+
         styles: {
             'fill': function (properties) {
                 var adcode = properties.adcode;
@@ -87,8 +88,7 @@ $(document).ready(function () {
 
 
     var map = new AMap.Map("indexmap", {
-        zooms: [4, 10],
-        zoom: 6,
+        zooms: [5, 10],
         showIndoorMap: false,
         isHotspot: false,
         defaultCursor: 'pointer',
@@ -98,10 +98,10 @@ $(document).ready(function () {
             disProvince,
             new AMap.TileLayer()
         ],
-        viewMode: '2D',
-        resizeEnable: true
-    })
 
+        viewMode: '2D',
+        resizeEnable: false
+    })
     map.setCity(provinces)
     map.addControl(new AMap.Scale());
     map.addControl(new AMap.ToolBar({liteStyle: true}));
@@ -144,6 +144,6 @@ $(document).ready(function () {
     $('#container').highcharts(json);
 })
 
-var downloadAllDayDate=function () {
+var downloadAllDayDate = function () {
     alert('请联系管理员')
 }

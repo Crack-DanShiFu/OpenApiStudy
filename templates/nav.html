@@ -30,6 +30,77 @@
         .container-fluid > p {
             margin-top: 8px;
         }
+
+        footer {
+            margin-top: 100px;
+            margin-bottom: 100px;
+            padding-top: 200px;
+            width: 1140px;
+            margin: auto;
+            text-align: center;
+            color: #888;
+        }
+
+        footer > div {
+            width: 500px;
+            margin: auto;
+            text-align: center;
+            /*display:table-cell;*/
+            /*vertical-align:middle;*/
+        }
+
+
+        footer > div {
+            width: 500px;
+            margin: auto;
+        }
+
+        footer > div:nth-child(1) {
+            height: 28px;
+
+        }
+
+        footer > div:nth-child(1) > p {
+            width: 56px;
+            margin: auto;
+        }
+
+
+        footer ul li {
+            float: left;
+            list-style: none;
+        }
+
+        footer ul {
+            width: 56px;
+            height: 28px;
+            margin: auto;
+        }
+
+
+        .wechat {
+            width: 28px;
+            height: 28px;
+            background-image: url(/static/img/icon-sn.svg);
+            background-position: -252px -28px;
+            /*text-align: center;*/
+            float: left;
+            margin: 0px auto;
+            /*display:inline-block;*/
+
+        }
+
+        .github {
+            width: 28px;
+            height: 28px;
+            background-image: url(/static/img/icon-sn.svg);
+            background-position: -28px -28px;
+            /*text-align: center;*/
+            float: left;
+
+            margin: auto;
+            margin: 0px auto;
+        }
     </style>
 </head>
 <body>
@@ -39,7 +110,7 @@
             <a class="navbar-brand" href="/">OpenApiStudy</a>
         </div>
         <p class="navbar-right">
-            <a href="/manage" class="btn btn-info ">
+            <a target=_blank href="/manage" class="btn btn-info ">
                 <span class="glyphicon glyphicon-cog"></span> 概览
             </a>
         </p>
@@ -48,6 +119,22 @@
 
 {% block main %}
 {% endblock %}
+
+<footer>
+    <div>
+        <p>
+            <a class="wechat" href="#"></a>
+            <a class="github" href="#"></a>
+        </p>
+    </div>
+    <div>
+        <p>Copyright © 2011-2019 SegmentFault.</p>
+        <p>浙ICP备 15005796号-2 浙公网安备 33010602002000号</p>
+        <p>QQ：13786429981</p>
+    </div>
+
+
+</footer>
 
 </body>
 </html>

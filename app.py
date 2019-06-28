@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from exts import db
 import config
 
@@ -27,6 +27,17 @@ app.register_blueprint(pageManage, url_prefix='/')
 from manage import manage
 
 app.register_blueprint(manage, url_prefix='/manage')
+
+
+@app.errorhandler(404)
+def miss(e):
+    return render_template('404.html')
+
+
+@app.errorhandler(500)
+def error(e):
+    return render_template('500.html')
+
 
 if __name__ == '__main__':
     app.run()

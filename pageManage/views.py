@@ -1,5 +1,5 @@
 import json
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from pageManage.server import *
 from . import pageManage
 
@@ -32,5 +32,7 @@ def day_data():
 @pageManage.route('/provinces_data/')
 def provinces_data():
     provinces = request.args.get('provinces')
+    if provinces is None or len(provinces) != 2:
+        return redirect('/')
     data = query_provinces_data(provinces)
     return render_template('provinces.html', data=data)

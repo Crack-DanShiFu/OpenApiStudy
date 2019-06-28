@@ -1,4 +1,9 @@
 
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 .content {
     width: 1140px;
     margin: auto;
@@ -45,7 +50,7 @@
     background-color: #ff500a;
 }
 
-.title{
+.title {
     width: 500px;
     margin: auto;
     font-size: 40px;

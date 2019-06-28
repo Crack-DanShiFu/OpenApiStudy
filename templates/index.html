@@ -23,14 +23,14 @@
         <div class="title">空气质量历史数据查询</div>
         <ul class="breadcrumb">
             {% for c in data[1] %}
-                <li><a href="/provinces_data?provinces={{ c['provinces_id'] }}"> {{ c['provinces_name'] }} </a></li>
+                <li><a target=_blank href="/provinces_data?provinces={{ c['provinces_id'][:2] }}"> {{ c['provinces_name'] }} </a></li>
             {% endfor %}
         </ul>
         {% for first_letter in data[0] %}
             <ul class="breadcrumb">
                 <b>{{ first_letter }}.</b>
                 {% for c in data[0][first_letter] %}
-                    <li><a href="/monthdata?city={{ c['city'] }}"> {{ c['city'] }} </a></li>
+                    <li><a target=_blank href="/monthdata?city={{ c['city'] }}"> {{ c['city'] }} </a></li>
                 {% endfor %}
             </ul>
 

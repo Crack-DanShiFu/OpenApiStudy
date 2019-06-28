@@ -8,7 +8,7 @@ def query_city_list():
     query = db.session().query(CityName).all()
     result = {}
     for i in query:
-        if not i.first_letter in result.keys():
+        if not (i.first_letter in result.keys()):
             result[i.first_letter] = []
         result[i.first_letter].append(i.to_json())
     return result
@@ -31,5 +31,5 @@ def query_day_data(city, month):
 
 
 def query_provinces_data(provinces):
-    query = db.session().query(CityName).filter(CityName.regionid.ilike(provinces[:2] + '%'))
+    query = db.session().query(CityName).filter(CityName.regionid.ilike(provinces + '%'))
     return {'provinces': provinces, 'result': [i.to_json() for i in query]}
