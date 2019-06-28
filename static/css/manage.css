@@ -1,0 +1,22 @@
+
+.content {
+    width: 1140px;
+    margin: auto;
+}
+
+
+.content > div:nth-child(1) {
+    width: 300px;
+    height: 240px;
+    float: left;
+}
+
+.content > div:nth-child(1) span {
+    margin-right: 35px;
+}
+
+.content > div:nth-child(2) {
+    width: 830px;
+    height: 240px;
+    float: right;
+}

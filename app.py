@@ -18,11 +18,15 @@ with app.app_context():
 from api import api
 
 app.register_blueprint(api, url_prefix='/api')
-
 # pageManage
 from pageManage import pageManage
 
 app.register_blueprint(pageManage, url_prefix='/')
+
+# manage
+from manage import manage
+
+app.register_blueprint(manage, url_prefix='/manage')
 
 if __name__ == '__main__':
     app.run()
