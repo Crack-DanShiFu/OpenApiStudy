@@ -2,6 +2,7 @@ import datetime
 import json
 import locale
 
+import xlwt as xlwt
 from flask import jsonify
 
 from exts import db
@@ -31,15 +32,53 @@ def query_all_day_data(city):
     return json.dumps([i.to_json() for i in query], ensure_ascii=False)
 
 
-def query_lately_aqi_city():
+def query_lately_aqi_city(provinces_id):
     today = datetime.date.today()
     oneday = datetime.timedelta(days=1)
     yesterday = today - oneday
     now_y, now_m, now_d = yesterday.strftime('%Y-%m-%d').split('-')
     s = now_y + '-' + now_m + '-' + now_d
-    query = db.session().query(DayData, CityName).filter(DayData.time_point == s).filter(
-        DayData.cityName == CityName.city).all()
+    if provinces_id is not None:
+        query = db.session().query(DayData, CityName).filter(DayData.time_point == s).filter(
+            DayData.cityName == CityName.city).filter(CityName.regionid.ilike(provinces_id[:2] + '%')).all()
+    else:
+        query = db.session().query(DayData, CityName).filter(DayData.time_point == s).filter(
+            DayData.cityName == CityName.city).all()
     result = {}
     for q in query:
         result[q[1].regionid] = [q[0].cityName, q[0].aqi]
     return json.dumps(result, ensure_ascii=False)
+
+
+def write_excel(result, ci):
+    wbk = xlwt.Workbook()
+    for r in result:
+        sheet = wbk.add_sheet(r)
+        target_type = target_type = ['time_point', 'aqi', 'pm2_5', 'pm10', 'so2', 'no2', 'co', 'o3', 'rank', 'quality']
+        for k, v in enumerate(target_type):
+            sheet.write(0, k, v)
+        for k, v in enumerate(result[r]):
+            sheet.write(k + 1, 0, v['time_point'])
+            sheet.write(k + 1, 1, v['aqi'])
+            sheet.write(k + 1, 2, v['pm2_5'])
+            sheet.write(k + 1, 3, v['pm10'])
+            sheet.write(k + 1, 4, v['so2'])
+            sheet.write(k + 1, 5, v['no2'])
+            sheet.write(k + 1, 6, v['co'])
+            sheet.write(k + 1, 7, v['o3'])
+            sheet.write(k + 1, 8, v['rank'])
+            sheet.write(k + 1, 9, v['quality'])
+    wbk.save('static/temp/' + ci + '.xls')
+    return 'static/temp/' + ci + '.xls'
+
+
+def query_provinces_aqi(provinces_id):
+    query = db.session().query(DayData, CityName).filter(DayData.cityName == CityName.city).filter(
+        CityName.regionid.ilike(provinces_id[:2] + '%')).all()
+    temp = [i[0].to_json() for i in query]
+    result = {}
+    for t in temp:
+        if t['cityName'] not in result:
+            result[t['cityName']] = []
+        result[t['cityName']].append(t)
+    return write_excel(result, provinces_id)

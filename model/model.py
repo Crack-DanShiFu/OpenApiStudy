@@ -24,6 +24,7 @@ class CityName(db.Model):
             'city': self.city,
             'first_letter': self.first_letter,
             'rank': self.rank,
+            'regionid': self.regionid,
         }
         return json_data
 

@@ -31,4 +31,5 @@ def query_day_data(city, month):
 
 
 def query_provinces_data(provinces):
-    return ''
+    query = db.session().query(CityName).filter(CityName.regionid.ilike(provinces[:2] + '%'))
+    return {'provinces': provinces, 'result': [i.to_json() for i in query]}

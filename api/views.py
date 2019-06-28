@@ -1,6 +1,7 @@
 import json
+import os
 
-from flask import request
+from flask import request, app, send_from_directory
 
 from api.server import *
 from . import api
@@ -41,4 +42,17 @@ def get_all_day_data():
 # query_lately_data
 @api.route('/get_lately_aqi/')
 def get_lately_data_city():
-    return query_lately_aqi_city()
+    provinces_id = request.args.get('provinces')
+    return query_lately_aqi_city(provinces_id)
+
+
+# get_provinces_aqi
+@api.route('/get_provinces_aqi/')
+def get_provinces_aqi():
+    provinces_id = request.args.get('provinces')
+    filename = 'static/temp/' + provinces_id + '.xls'
+    if os.path.exists(filename):
+        directory = os.getcwd()  # 假设在当前目录s
+        return send_from_directory(directory, filename, as_attachment=True)
+    else:
+        return '404'
