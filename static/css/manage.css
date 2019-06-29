@@ -27,3 +27,16 @@
     margin-top: 10px;
 
 }
+
+#datetimepicker1{
+    width: 200px;
+}
+.data_downloads{
+    width: 260px;
+}
+.data_downloads>div{
+    float: left;
+}
+.data_downloads>button{
+    float: right;
+}

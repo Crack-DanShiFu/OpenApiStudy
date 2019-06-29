@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css"/>
+
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
@@ -15,10 +16,19 @@
             type="text/javascript"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.min.js" type="text/javascript"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+    {#    日期选择#}
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet"></link>
+    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.min.js" type="text/javascript"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"
+            type="text/javascript"></script>
     <style>
-        a{
+        a {
             text-decoration-line: none;
         }
+
         .container-fluid {
             width: 1140px;
             margin: auto;
@@ -118,8 +128,8 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">OpenApiStudy</a>
-{#            <a class="navbar-brand" href="/">下载</a>#}
-{#            <a class="navbar-brand" href="/">文档</a>#}
+            {#            <a class="navbar-brand" href="/">下载</a>#}
+            {#            <a class="navbar-brand" href="/">文档</a>#}
         </div>
         <p class="navbar-right">
             <a target=_blank href="/manage" class="btn btn-info ">

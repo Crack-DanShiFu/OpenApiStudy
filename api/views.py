@@ -62,7 +62,6 @@ def get_provinces_aqi():
 @api.route('/year_data/')
 def get_year_data():
     year = request.args.get('year')
-    query_year_data(year)
     filename = 'static/temp/' + year + '.xls'
     if os.path.exists(filename):
         directory = os.getcwd()  # 假设在当前目录s
