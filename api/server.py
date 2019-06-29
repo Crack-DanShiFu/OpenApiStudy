@@ -1,11 +1,6 @@
 import datetime
 
-import openpyxl as openpyxl
-import xlrd
-import xlwt
 from openpyxl import load_workbook, Workbook
-from xlutils3 import copy
-
 from model.model import *
 
 
