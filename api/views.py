@@ -50,7 +50,7 @@ def get_lately_data_city():
 @api.route('/get_provinces_aqi/')
 def get_provinces_aqi():
     provinces_id = request.args.get('provinces') + '0000'
-    filename = 'static/temp/' + provinces_id + '.xls'
+    filename = 'static/temp/' + provinces_id + '.xlsx'
     if os.path.exists(filename):
         directory = os.getcwd()  # 假设在当前目录s
         return send_from_directory(directory, filename, as_attachment=True)
