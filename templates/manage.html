@@ -55,21 +55,61 @@
                     <div class='input-group date' id='datetimepicker1'>
                         <input name="time" type='text' class="form-control" placeholder="选择日期"/>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-
                     </div>
-                    <button type="button" class="btn btn-success disabled">下载</button>
+                    <button type="button" class="btn btn-success disabled" onclick="data_downloads()">下载</button>
                 </div>
 
             </div>
         </div>
-
     </div>
     <script>
-        $(function () {
+        $(document).ready(function () {
             var picker1 = $('#datetimepicker1').datetimepicker({
                 format: 'YYYY-MM-DD',
                 locale: moment.locale('zh-cn'),
+
             });
-        });
+            picker1.on('dp.change', function () {
+                var date = $('.data_downloads input').val()
+                if (date != "")
+                    $('.data_downloads button').removeClass('disabled')
+                else
+                    $('.data_downloads button').addClass('disabled')
+            });
+        })
+
+        var creat_day_excel = function (jsonData) {
+            let str = '地区,月份,AQI,PM2.5,PM10,SO2,CO,NO2,O3,rank,空气质量\n';
+            let strKey = ['cityName', 'time_point', 'aqi', 'pm2_5', 'pm10', 'so2', 'co', 'no2', 'o3', 'rank', 'quality'];
+            //增加\t为了不让表格显示科学计数法或者其他格式
+            for (let i = 0; i < jsonData.length; i++) {
+                for (let k = 0; k < strKey.length; k++) {
+                    str += `${jsonData[i][strKey[k]] + '\t'},`;
+                }
+                str += '\n';
+            }
+            //encodeURIComponent解决中文乱码
+            let uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(str);
+            //通过创建a标签实现
+            let link = document.createElement("a");
+            link.href = uri;
+            //对下载的文件命名
+            link.download = jsonData[0]['time_point'] + "全国空气质量日数据.csv";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        var data_downloads = function () {
+            var date = $('.data_downloads input').val()
+            $.ajax({
+                url: '/api/downloads_day_data/?day=' + date,
+                type: 'GET',
+                success: function (data) {
+                    var data_obj = JSON.parse(data)
+                    creat_day_excel(data_obj)
+                }
+            })
+        }
     </script>
 {% endblock %}

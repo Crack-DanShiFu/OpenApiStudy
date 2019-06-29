@@ -62,9 +62,21 @@ def get_provinces_aqi():
 @api.route('/year_data/')
 def get_year_data():
     year = request.args.get('year')
-    filename = 'static/temp/' + year + '.xls'
+    filename = 'static/temp/' + year + '.xlsx'
     if os.path.exists(filename):
         directory = os.getcwd()  # 假设在当前目录s
         return send_from_directory(directory, filename, as_attachment=True)
     else:
         abort(500)
+
+
+@api.route('/downloads_day_data/')
+def get_day_data():
+    day = request.args.get('day')
+    return query_day_data(day)
+
+
+@api.route('/update_day_excel')
+def update_day_excel():
+    query_update_day_excel()
+    return "success"
