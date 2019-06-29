@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import request, app, send_from_directory
+from flask import request, app, send_from_directory, abort
 
 from api.server import *
 from . import api
@@ -12,9 +12,9 @@ def index():
     return "api"
 
 
-@api.route('/get_city_list/')
-def get_city_list():
-    return query_city_list()
+# @api.route('/get_city_list/')
+# def get_city_list():
+#     return query_city_list()
 
 
 # query_month_data
@@ -49,10 +49,23 @@ def get_lately_data_city():
 # get_provinces_aqi
 @api.route('/get_provinces_aqi/')
 def get_provinces_aqi():
-    provinces_id = request.args.get('provinces')+'0000'
+    provinces_id = request.args.get('provinces') + '0000'
     filename = 'static/temp/' + provinces_id + '.xls'
     if os.path.exists(filename):
         directory = os.getcwd()  # 假设在当前目录s
         return send_from_directory(directory, filename, as_attachment=True)
     else:
-        return '404'
+        abort(404)
+
+
+# year_data
+@api.route('/year_data/')
+def get_year_data():
+    year = request.args.get('year')
+    query_year_data(year)
+    filename = 'static/temp/' + year + '.xls'
+    if os.path.exists(filename):
+        directory = os.getcwd()  # 假设在当前目录s
+        return send_from_directory(directory, filename, as_attachment=True)
+    else:
+        abort(500)

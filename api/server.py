@@ -1,5 +1,7 @@
 import datetime
 
+import xlwt
+
 from model.model import *
 
 
@@ -49,7 +51,7 @@ def query_lately_aqi_city(provinces_id):
     return json.dumps(result, ensure_ascii=False)
 
 
-#
+#写文件测试
 # def write_excel(result, ci):
 #     wbk = xlwt.Workbook()
 #     for r in result:
@@ -70,15 +72,26 @@ def query_lately_aqi_city(provinces_id):
 #             sheet.write(k + 1, 9, v['quality'])
 #     wbk.save('static/temp/' + ci + '.xls')
 #     return 'static/temp/' + ci + '.xls'
-
-
-def query_provinces_aqi(provinces_id):
-    query = db.session().query(DayData, CityName).filter(DayData.cityName == CityName.city).filter(
-        CityName.regionid.ilike(provinces_id[:2] + '%')).all()
-    temp = [i[0].to_json() for i in query]
-    result = {}
-    for t in temp:
-        if t['cityName'] not in result:
-            result[t['cityName']] = []
-        result[t['cityName']].append(t)
-    return write_excel(result, provinces_id)
+#
+#
+# def query_provinces_aqi(provinces_id):
+#     query = db.session().query(DayData, CityName).filter(DayData.cityName == CityName.city).filter(
+#         CityName.regionid.ilike(provinces_id[:2] + '%')).all()
+#     temp = [i[0].to_json() for i in query]
+#     result = {}
+#     for t in temp:
+#         if t['cityName'] not in result:
+#             result[t['cityName']] = []
+#         result[t['cityName']].append(t)
+#     return write_excel(result, provinces_id)
+#
+#
+# def query_year_data(year):
+#     query = db.session().query(DayData).filter(DayData.time_point.contains(year + '%')).all()
+#     temp = [i.to_json() for i in query]
+#     result = {}
+#     for t in temp:
+#         if t['cityName'] not in result:
+#             result[t['cityName']] = []
+#         result[t['cityName']].append(t)
+#     return write_excel(result, year)

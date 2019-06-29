@@ -2,6 +2,8 @@
 .content {
     width: 1140px;
     margin: auto;
+    min-height: 1200px;
+
 }
 
 th {
@@ -26,7 +28,7 @@ th {
     width: 230px;
 }
 
-button{
+button {
     width: 200px;
     margin: auto;
 }

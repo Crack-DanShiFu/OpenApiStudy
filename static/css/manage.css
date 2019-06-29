@@ -6,17 +6,24 @@
 
 
 .content > div:nth-child(1) {
+    width: 1140px;
+    height: 240px;
+
+}
+
+.content > div:nth-child(1)>div:nth-child(1){
     width: 300px;
     height: 240px;
     float: left;
 }
-
-.content > div:nth-child(1) span {
-    margin-right: 35px;
-}
-
-.content > div:nth-child(2) {
+.content > div:nth-child(1)>div:nth-child(2){
     width: 830px;
     height: 240px;
     float: right;
+}
+.content > div:nth-child(2) {
+    width: 1140px;
+    height: 240px;
+    margin-top: 10px;
+
 }
